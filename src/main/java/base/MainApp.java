@@ -5,14 +5,21 @@ import pom.HomePage;
 import pom.InvoicesPage;
 import pom.LoginPage;
 
+import java.util.logging.Logger;
+
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Logger.getAnonymousLogger;
+
 public class MainApp {
 
     private static WebDriver driver;
 
-    public static final String SFR_USER_NAME = "*****";
-    public static final String SFR_PASSWORD = "*****";
+    private static final String SFR_USER_NAME = "PBREGOU";
+    private static final String SFR_PASSWORD = "4AK3PUd&189";
 
     public static void main(String[] args) {
+        Logger logger = getAnonymousLogger();
 
         try {
             driver = Driver.getChromeDriver();
@@ -29,10 +36,10 @@ public class MainApp {
             InvoicesPage invoicesPage = new InvoicesPage(driver);
             invoicesPage.downloadAllInvoices();
 
-            System.out.println("Invoices were downloaded in " + Driver.getDownloadFolder());
+            logger.log(INFO, "Invoices were downloaded in " + Driver.getDownloadFolder());
         }
         catch (Exception e){
-            System.out.println("FAILURE: " + e);
+            logger.log(SEVERE,"FAILURE: " + e);
         }
         finally {
             driver.quit();

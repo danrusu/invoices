@@ -1,22 +1,24 @@
 package pom;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-public class BaseComponent {
+class BaseComponent {
 
-    private SearchContext context;
+    private By context;
+    private WebDriver driver;
 
-    public BaseComponent(WebDriver driver, By componentSelector) {
-        this.context = driver.findElement(componentSelector);
+    BaseComponent(WebDriver driver, By componentSelector) {
+        this.driver = driver;
+        this.context = componentSelector;
     }
 
-    public void setInputField(By inputSelector, String text){
-        context.findElement(inputSelector).sendKeys(text);
+    private WebElement findElement(By selector){
+        return driver.findElement(context).findElement(selector);
     }
 
-    public void click(By elementSelector){
-        context.findElement(elementSelector).click();
+    void click(By elementSelector){
+        findElement(elementSelector).click();
     }
 }

@@ -6,30 +6,31 @@ import org.openqa.selenium.WebDriver;
 import java.util.stream.IntStream;
 
 import static base.ThreadUtils.sleep;
-import static base.ThreadUtils.sleep;
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Logger.getAnonymousLogger;
 
 public class InvoicesPage extends BasePage {
 
-    public static long ACTIONS_TIMEOUT = 1000;
+    private static final long ACTIONS_TIMEOUT = 1000;
 
     public InvoicesPage(WebDriver driver) {
         super(driver);
     }
 
-    private By pageHeader = By.xpath("//h1[text()=\"INVOICES\"]");
-
     private By invoices = By.cssSelector("xnf-facture-item");
-    private String invoiceDownloadLinkXpathTemplate = "(//xnf-facture-item//a[text()=\"Download\"])[@invoiceIndex]";
 
-    public void clickInvoiceDownloadLink(int invoiceIndex){
+    private void clickInvoiceDownloadLink(int invoiceIndex){
+        String invoiceDownloadLinkXpathTemplate =
+                "(//xnf-facture-item//a[text()=\"Download\"])[@invoiceIndex]";
         By invoiceDownloadLink = By.xpath(invoiceDownloadLinkXpathTemplate
-                .replaceAll("@invoiceIndex", "" + invoiceIndex)
+                .replace("@invoiceIndex", "" + invoiceIndex)
         );
         click(invoiceDownloadLink);
     }
 
-    public void downloadInvoices(int invoiceIndex){
-        System.out.println("Download invoice #" + invoiceIndex);
+    private void downloadInvoices(int invoiceIndex){
+        String downloadInvoiceMessage = "Download invoice #" + invoiceIndex;
+        getAnonymousLogger().log(INFO, downloadInvoiceMessage);
 
         clickInvoiceDownloadLink(invoiceIndex);
         sleep(ACTIONS_TIMEOUT);
@@ -47,13 +48,14 @@ public class InvoicesPage extends BasePage {
         sleep(ACTIONS_TIMEOUT);
     }
 
-    public int getInvoiceCount() {
+    private int getInvoiceCount() {
         return driver.findElements(invoices).size();
     }
 
     public void downloadAllInvoices() {
         int invoiceCount = getInvoiceCount();
-        System.out.println(invoiceCount + " invoices to download!");
+        String downloadAllInvoicesMessage = invoiceCount + " invoices to download!";
+        getAnonymousLogger().log(INFO, downloadAllInvoicesMessage);
         IntStream.rangeClosed(1, invoiceCount).forEach(this::downloadInvoices);
     }
 }

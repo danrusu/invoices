@@ -9,11 +9,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-public class Driver {
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Logger.getAnonymousLogger;
+
+class Driver {
+
+    private Driver() { }
 
     private static final String FILE_NAME_TIMESTAMP_FORMAT = "yyyy_MM_dd_HH_mm_ss";
     private static String downloadFolder;
@@ -28,24 +35,23 @@ public class Driver {
             try {
                 Files.createDirectory(newFolderPath);
             } catch (IOException e) {
-                e.printStackTrace();
+                getAnonymousLogger().log(SEVERE, Arrays.toString(e.getStackTrace()));
             }
         }
     }
 
-    public static WebDriver getChromeDriver(){
+    static WebDriver getChromeDriver(){
 
-        Path projectFolderPath = Paths.get(System.getProperty("user.dir"))
-                .getParent();
+        String userDir = System.getProperty("user.dir");
 
-        Path downloadFolderPath = Paths.get(projectFolderPath.toString(),
+        Path downloadFolderPath = Paths.get(userDir,
                 "download",
                 getTimestamp() + "_invoices");
 
         createDir(downloadFolderPath);
 
         String driverExecutablePath = Paths
-                .get(projectFolderPath.toString(), "chromedriver.exe")
+                .get(userDir, "chromedriver.exe")
                 .toString();
 
         System.setProperty("webdriver.chrome.driver", driverExecutablePath);
@@ -54,7 +60,8 @@ public class Driver {
 
         HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
-        System.out.println("Browser download folder: " + downloadFolder);
+        String downloadFolderMessage = "Browser download folder: " + downloadFolder;
+        getAnonymousLogger().log(INFO, downloadFolderMessage);
         chromePrefs.put("download.default_directory", downloadFolder);
 
         ChromeOptions options = new ChromeOptions();
@@ -68,8 +75,7 @@ public class Driver {
         return driver;
     }
 
-    public static String getDownloadFolder() {
+    static String getDownloadFolder() {
         return downloadFolder;
     }
-
 }

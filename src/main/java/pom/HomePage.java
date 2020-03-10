@@ -7,8 +7,6 @@ import static base.ThreadUtils.sleep;
 
 public class HomePage extends BasePage{
 
-    public static final String URL = "https://www.sfrbusiness.fr/espace-client/portail/#/";
-
     public HomePage(WebDriver driver) {
         super(driver);
     }
