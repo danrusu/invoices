@@ -15,8 +15,8 @@ public class MainApp {
 
     private static WebDriver driver;
 
-    private static final String SFR_USER_NAME = "PBREGOU";
-    private static final String SFR_PASSWORD = "4AK3PUd&189";
+    private static final String SFR_USER_NAME = "*****";
+    private static final String SFR_PASSWORD = "*****";
 
     public static void main(String[] args) {
         Logger logger = getAnonymousLogger();
