@@ -11,7 +11,7 @@ import static java.util.logging.Logger.getAnonymousLogger;
 
 public class InvoicesPage extends BasePage {
 
-    private static final long ACTIONS_TIMEOUT = 1000;
+    private static final long ACTIONS_TIMEOUT = 2000;
 
     public InvoicesPage(WebDriver driver) {
         super(driver);
@@ -31,7 +31,7 @@ public class InvoicesPage extends BasePage {
     private void downloadInvoices(int invoiceIndex){
         String downloadInvoiceMessage = "Download invoice #" + invoiceIndex;
         getAnonymousLogger().log(INFO, downloadInvoiceMessage);
-
+        sleep(ACTIONS_TIMEOUT);
         clickInvoiceDownloadLink(invoiceIndex);
         sleep(ACTIONS_TIMEOUT);
 

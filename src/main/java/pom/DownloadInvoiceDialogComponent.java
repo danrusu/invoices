@@ -13,7 +13,7 @@ class DownloadInvoiceDialogComponent extends BaseComponent {
 
     private By downloadButton = By.xpath("//button[contains(text(),\"Download\")]");
     private By csvRadioButton = By.xpath("//label[contains(@class,\"radio-button\")][contains(text(),\"CSV\")]");
-    private By closeIcon = By.cssSelector("a[href=\"#\"][role=\"button\"]");
+    private By closeIcon = By.cssSelector("a[href=\"#\"][class*=\"close\"]");
 
     void selectCsvFormat(){
         click(csvRadioButton);
