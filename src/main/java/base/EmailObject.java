@@ -8,21 +8,18 @@ public class EmailObject {
     private String subject;
     private String textContent;
     private Path attachmentsFolder;
-    private String attachmentsExtension;
 
     // change this to builder
     public EmailObject(String from,
                        String to,
                        String subject,
                        String textContent,
-                       Path attachmentsFolder,
-                       String attachmentsExtension) {
+                       Path attachmentsFolder) {
         this.from = from;
         this.to = to;
         this.subject = subject;
         this.textContent = textContent;
         this.attachmentsFolder = attachmentsFolder;
-        this.attachmentsExtension = attachmentsExtension;
     }
 
     public String getFrom() {
@@ -43,9 +40,5 @@ public class EmailObject {
 
     public Path getAttachmentsFolder() {
         return attachmentsFolder;
-    }
-
-    public String getAttachmentsExtension() {
-        return attachmentsExtension;
     }
 }

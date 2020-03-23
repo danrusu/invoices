@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.stream.IntStream;
 
-import static base.ThreadUtils.sleep;
+import static utils.ThreadUtils.sleep;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Logger.getAnonymousLogger;
 

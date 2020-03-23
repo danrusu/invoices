@@ -3,7 +3,7 @@ package pom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static base.ThreadUtils.sleep;
+import static utils.ThreadUtils.sleep;
 
 public class HomePage extends BasePage{
 
