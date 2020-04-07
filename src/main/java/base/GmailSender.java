@@ -41,12 +41,12 @@ class GmailSender {
     }
 
     public void sendMail(EmailObject email) {
-
         Session session = getSession(
                 getAuthenticator(gmailUsername, gmailPassword),
                 getEmailSslProperties());
 
         MimeMessage message = getMimeMessage(session, email);
+
 
         try {
             Transport.send(message);
